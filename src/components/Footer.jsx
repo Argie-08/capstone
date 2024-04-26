@@ -9,10 +9,10 @@ const Footer = () => {
       <Row className="footerbg">
         <Col>
           <Container>
-            <Row className="d-flex flex-column justify-content-between gap-5 centerTest">
+            <Row className="d-flex flex-column justify-content-between gap-5">
               <Col className="fontThis mt-3">
                 <p className="follow">FOLLOW US</p>
-                <div className="d-flex align-items-center justify-content-center">
+                <div className="d-flex">
                   <p className="pi pi-envelope icons"></p>
                   <p className="pi pi-facebook icons"></p>
                   <p className="pi pi-youtube icons"></p>

@@ -8,9 +8,12 @@
   text-align: center;
   color: #ffff;
   font-size: 3rem;
+  font-weight: 800;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  text-shadow: -2px 2px 0 #000, 2px 2px 0 #000, 2px -2px 0 #000,
+    -2px -2px 0 #000;
 }
 .carouselPosition {
   position: relative;

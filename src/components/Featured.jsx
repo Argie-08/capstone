@@ -22,8 +22,9 @@ const Featured = ({ handleAddCartHome, setOpen, open }) => {
     async function getFile() {
       const { data } = await api.get("/products");
       const latest = data.reverse();
+      const second = latest.slice(0, 6);
 
-      setProducts(latest);
+      setProducts(second);
     }
     getFile();
     return () => {};
