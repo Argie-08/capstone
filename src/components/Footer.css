@@ -1,0 +1,19 @@
+.footerbg {
+  height: 200px;
+  background: rgba(0, 0, 0, 0.9);
+}
+.fontThis {
+  color: #ffff;
+}
+.follow {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.icons {
+  margin-right: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.centerTest {
+  text-align: center;
+}

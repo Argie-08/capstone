@@ -1,0 +1,20 @@
+.carousel-item img {
+  height: 70vh;
+  width: 100%;
+  object-fit: cover;
+}
+.carouselText {
+  position: absolute;
+  text-align: center;
+  color: #ffff;
+  font-size: 3rem;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.carouselPosition {
+  position: relative;
+}
+.carousel-indicators {
+  visibility: hidden;
+}

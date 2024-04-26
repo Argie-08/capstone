@@ -1,0 +1,82 @@
+.navbar {
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  background-color: #ffffff !important;
+}
+.route {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #000;
+}
+.me-auto {
+  /* gap: 4rem; */
+  display: flex;
+  align-items: center;
+}
+
+.anticon svg {
+  height: 2rem;
+  width: 2rem;
+}
+.cartNum {
+  display: flex;
+  justify-content: center;
+}
+
+.cartNum2 {
+  color: rgb(255, 255, 255);
+  font-size: 1.1rem;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+}
+.pi-truck {
+  cursor: pointer;
+}
+.navbar .navLink {
+  color: #000;
+  font-size: 1.2rem;
+  text-decoration: none;
+  font-weight: 750;
+  position: relative;
+  padding-bottom: 0.5rem;
+  margin-right: 50px;
+}
+
+.navbar .navLink::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0.1rem;
+  width: 100%;
+  background-color: #000;
+  z-index: 2;
+  transform: scaleX(0);
+  transition: 0.3s;
+}
+
+.navbar .navLink:hover::after {
+  transform: scaleX(1);
+}
+
+.me-auto ul {
+  margin: 0;
+}
+.logOutBtn {
+  background: transparent;
+  color: #000;
+  font-size: 1.2rem;
+  border: solid 1px rgba(0, 0, 0, 0.5);
+  border-radius: 0.3rem;
+  transition: 0.3s;
+}
+.logOutBtn:hover {
+  background: #000;
+  color: #ffff;
+  filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.5));
+}

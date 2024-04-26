@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-family: Helvetica, sans-serif;
+}
+.freeShip {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.productSubT {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.addminusBtn {
+  font-size: 1.1rem;
+}
+.total {
+  font-size: 1.5rem;
+  font-weight: 600;
+}

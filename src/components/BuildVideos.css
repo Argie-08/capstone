@@ -1,0 +1,28 @@
+.bg {
+  background: #000000e8;
+  height: 100%;
+}
+.mainVideo {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  border: solid 2px #ffffff80;
+}
+.frame {
+  height: 60vh;
+  padding: 1rem;
+}
+.boxFrame {
+  position: relative;
+}
+.boxFrameTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: -2px 2px 0 #000, 2px 2px 0 #000, 2px -2px 0 #000,
+    -2px -2px 0 #000;
+}
