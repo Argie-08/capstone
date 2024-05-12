@@ -19,11 +19,16 @@ const Navigation = ({ cartItems, cartModal, openOrder }) => {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("username"))
   );
+  // console.log(user);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const api = useApi(token);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
-  // const [file, setFile] = useState([]);
+
+  useEffect(() => {
+    // handleLogOut();
+    return () => {};
+  }, [user]);
 
   async function handleLogOut() {
     try {
@@ -41,18 +46,6 @@ const Navigation = ({ cartItems, cartModal, openOrder }) => {
       navigate("/");
     }
   }
-
-  // const changeColor = () => {
-  //   if (window.scrollY >= 500) {
-  //     setColor(true);
-  //   } else {
-  //     setColor(false);
-  //   }
-  // };
-
-  // window.addEventListener("scroll", changeColor);
-
-  // setFile(`${user?.username}`);
 
   return (
     <>

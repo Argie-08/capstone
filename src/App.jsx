@@ -20,10 +20,14 @@ import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
 import { Toast } from "primereact/toast";
+import useApi from "./utils/http";
+
+// export const Context = React.createContext();
 
 const images = import.meta.env.VITE_IMAGES;
 
 const App = () => {
+  const api = useApi();
   const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(
@@ -36,6 +40,7 @@ const App = () => {
   const [visibleRight, setVisibleRight] = useState(false);
   const [orderRight, setOrderRight] = useState(false);
   const [open, setOpen] = useState(false);
+  // const [idNum, setIdNum] = useState([]);
 
   useEffect(() => {
     navIcon();
@@ -43,8 +48,14 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    // Test();
     return () => {};
   }, []);
+
+  // async function Test() {
+  //   const { data } = await api.get("/products");
+  //   setIdNum(data);
+  // }
 
   const [data, setData] = useState("");
 
@@ -62,6 +73,7 @@ const App = () => {
     } else {
       setVisible(true);
       setSecondData(data);
+
       const productExist = cartItems.find((item) => item.id === data.id);
       if (productExist) {
         setCartItems(
@@ -166,6 +178,10 @@ const App = () => {
     }
   }
 
+  function placeOrder(e) {
+    setOrderRight(true);
+  }
+
   return (
     <>
       <Toast ref={toast} />
@@ -193,7 +209,6 @@ const App = () => {
               user={user}
               cartItems={cartItems}
               handleAddCart={handleAddCart}
-              handleDecrease={handleDecrease}
               handleIncrease={handleIncrease}
               setVisible={setVisible}
               visible={visible}
@@ -213,6 +228,7 @@ const App = () => {
               cartItems={cartItems}
               user={user}
               totalPrice={totalPrice}
+              placeOrder={placeOrder}
             />
           }
         />
@@ -292,19 +308,6 @@ const App = () => {
           <Col xs={12}></Col>
         </Row>
       </Sidebar>
-
-      {/* <Routes>
-        {routes.map((route, index) => {
-          return (
-            <Route
-              key={index}
-              path={route.path}
-              element={route.element}
-              exact
-            />
-          );
-        })}
-      </Routes> */}
     </>
   );
 };

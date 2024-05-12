@@ -93,7 +93,13 @@ const shop = ({
     <>
       <Row className="navBarz"></Row>
       <Row className="storeHeroPos">
-        <img src={Pic} className="storeHero" />
+        <div className="box12">
+          <img src={Pic} className="storeHero" />
+          <p className="textOver">
+            "I do not fear computers. I fear lack of them"
+          </p>
+        </div>
+
         <Col className="storeHeroOver">
           <Row>
             <Col md={12} className="d-flex py-3 w-100">
