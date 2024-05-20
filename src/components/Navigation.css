@@ -55,8 +55,8 @@
   text-decoration: none;
   font-weight: 750;
   position: relative;
-  padding-bottom: 0.5rem;
-  margin-right: 50px;
+  /* padding-bottom: 0.5rem; */
+  /* margin-right: 50px; */
 }
 
 .navbar .navLink::after {
@@ -107,9 +107,9 @@
   font-size: 1.2rem;
 }
 .adminContainer {
-  height: 100%;
+  height: 70%;
   width: 150px;
-  background: rgba(0, 0, 0);
+  background: rgba(0, 0, 0, 0.8);
 }
 .colBox {
   height: 50px;

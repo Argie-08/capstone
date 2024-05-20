@@ -117,71 +117,66 @@ const Navigation = ({
       >
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Row className="w-100 d-flex align-items-center m-0">
-            <Col sm={4} className="">
-              <Nav className="me-auto d-flex justify-content-center">
-                <ul>
-                  <Link className="navLink" onClick={showHome}>
-                    HOME
-                  </Link>
-                </ul>
-                <ul>
-                  <Link className="navLink" onClick={showShop}>
-                    SHOP
-                  </Link>
-                </ul>
-                <ul>
-                  <Link className="navLink" onClick={showAbout}>
-                    ABOUT
-                  </Link>
-                </ul>
-              </Nav>
-            </Col>
-            <Col sm={3} className="d-flex justify-content-center">
-              <img src={logo} height={50} />
-            </Col>
-            <Col
-              sm={5}
-              className="d-flex justify-content-end gap-4 align-items-center colBox  px-0"
-            >
-              {menuVisible && (
-                <div className="d-flex justify-content-end gap-4 align-items-center">
-                  <div className="d-flex align-items-center gap-2">
-                    <p className="p-0 m-0 fs-5" id="user">
-                      {user?.first_name}
-                    </p>
-                    <UserOutlined onClick={logInHere} />
-                  </div>
+          <Nav className="me-auto w-100">
+            <Row className="w-100 d-flex justify-content-between align-items-center m-0">
+              <Col sm={4} className=" d-flex justify-content-center gap-5">
+                <Link className="navLink" onClick={showHome}>
+                  HOME
+                </Link>
 
-                  <div className="cartNum" onClick={cartModal}>
-                    <ShoppingCartOutlined className="cart" />
-                    <p className="cartNum2">
-                      {cartItems.length === 0 ? "" : cartItems.length}
-                    </p>
+                <Link className="navLink" onClick={showShop}>
+                  SHOP
+                </Link>
+
+                <Link className="navLink" onClick={showAbout}>
+                  ABOUT
+                </Link>
+              </Col>
+              <Col sm={3} className="d-flex justify-content-center">
+                <img src={logo} height={50} />
+              </Col>
+              <Col
+                sm={3}
+                className="d-flex justify-content-between gap-3 align-items-center colBox  px-0"
+              >
+                {menuVisible && (
+                  <div className="d-flex justify-content-end gap-4 align-items-center w-100">
+                    <div className="d-flex align-items-center gap-2">
+                      <p className="p-0 m-0 fs-5" id="user">
+                        {user?.first_name}
+                      </p>
+                      <UserOutlined onClick={logInHere} />
+                    </div>
+
+                    <div className="cartNum" onClick={cartModal}>
+                      <ShoppingCartOutlined className="cart" />
+                      <p className="cartNum2">
+                        {cartItems.length === 0 ? "" : cartItems.length}
+                      </p>
+                    </div>
+                    {inVisible && (
+                      <Button className="px-4 logInBtn" onClick={handleLogIn}>
+                        LOG IN
+                      </Button>
+                    )}
+                    {outVisible && (
+                      <Button className="logOutBtn" onClick={handleLogOut} link>
+                        Log Out
+                      </Button>
+                    )}
                   </div>
-                  {inVisible && (
-                    <Button className="px-4 logInBtn" onClick={handleLogIn}>
-                      LOG IN
-                    </Button>
-                  )}
-                  {outVisible && (
-                    <Button className="logOutBtn" onClick={handleLogOut} link>
-                      Log Out
-                    </Button>
-                  )}
+                )}
+
+                <div className="adminContainer m-0 d-flex justify-content-center align-items-center">
+                  <SelectOutlined className="adminIcon" />
+                  <p className="admin m-0" onClick={adminLog}>
+                    Admin Access
+                  </p>
                 </div>
-              )}
-
-              <div className="adminContainer m-0 d-flex justify-content-center align-items-center">
-                <SelectOutlined className="adminIcon" />
-                <p className="admin m-0" onClick={adminLog}>
-                  Admin Access
-                </p>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </Nav>
         </Navbar.Collapse>
-        {/* </Container> */}
       </Navbar>
     </>
   );
