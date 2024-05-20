@@ -48,7 +48,7 @@ const AdminLog = () => {
             md={12}
             className="colForm d-flex justify-content-center align-items-center"
           >
-            <form className="p-5 adminForm" onSubmit={adminLog}>
+            <form className="adminForm" onSubmit={adminLog}>
               <p>Login</p>
               <div className="d-flex gap-2 adminBorderBottom">
                 <UserOutlined className="adminIcon" />

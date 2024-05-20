@@ -119,7 +119,7 @@ const Navigation = ({
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto w-100">
             <Row className="w-100 d-flex justify-content-between align-items-center m-0">
-              <Col sm={4} className=" d-flex justify-content-center gap-5">
+              <Col sm={3} className=" d-flex justify-content-center gap-5">
                 <Link className="navLink" onClick={showHome}>
                   HOME
                 </Link>
@@ -132,12 +132,12 @@ const Navigation = ({
                   ABOUT
                 </Link>
               </Col>
-              <Col sm={3} className="d-flex justify-content-center">
+              <Col sm={6} className="d-flex justify-content-center">
                 <img src={logo} height={50} />
               </Col>
               <Col
                 sm={3}
-                className="d-flex justify-content-between gap-3 align-items-center colBox  px-0"
+                className="d-flex justify-content-center gap-3 align-items-center colBox  px-0"
               >
                 {menuVisible && (
                   <div className="d-flex justify-content-end gap-4 align-items-center w-100">

@@ -121,6 +121,7 @@
   transition: 0.5s;
   color: rgba(255, 255, 255, 0.5);
   position: relative;
+  font-size: clamp(0.8rem, 0.7143rem + 0.381vw, 1rem);
 }
 
 .admin::after {
