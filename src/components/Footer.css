@@ -5,14 +5,24 @@
 .fontThis {
   color: #ffff;
 }
+
+.footerbtn p {
+  font-size: clamp(0.7rem, 0.5714rem + 0.5714vw, 1rem);
+}
 .follow {
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 0.8714rem + 0.5714vw, 1.3rem);
   font-weight: 600;
 }
 .icons {
   margin-right: 1rem;
   font-size: 2rem;
   cursor: pointer;
+  text-decoration: none;
+  color: #ffff;
+  transition: 0.5s;
+}
+.icons:hover {
+  color: #ffffff81;
 }
 .centerTest {
   text-align: center;

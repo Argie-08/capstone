@@ -1,0 +1,52 @@
+.adminRow {
+  height: 70vh;
+  width: 100%;
+}
+.adminForm {
+  height: 50%;
+  width: 40%;
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.1);
+}
+.adminForm p {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 750;
+}
+
+.adminForm input {
+  height: 2.5rem;
+  padding-left: 2rem;
+  border: 0;
+  width: 100%;
+  background: transparent;
+  outline: 0;
+}
+
+.adminForm button {
+  background: rgba(0, 0, 0, 0.9);
+  margin-top: 2rem;
+  height: 2.5rem;
+  border-radius: 1rem;
+  color: #ffff;
+}
+.adminBorderBottom {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.9);
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.ant-message-top {
+  top: 50% !important;
+}
+.adminBorderBottom .adminIcon svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  font-size: 0.5rem;
+  padding-left: 0.5rem;
+}

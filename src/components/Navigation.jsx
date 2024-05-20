@@ -1,41 +1,52 @@
-import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import {
+  ShoppingCartOutlined,
+  UserOutlined,
+  SelectOutlined,
+} from "@ant-design/icons";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import useApi from "../utils/http";
-import { Popover } from "antd";
+import { Toast } from "primereact/toast";
 import "./Navigation.css";
-import routes from "../routes";
 
-const Navigation = ({ cartItems, cartModal, openOrder }) => {
+const Navigation = ({
+  cartItems,
+  cartModal,
+  openOrder,
+  menuVisible,
+  setMenuVisible,
+}) => {
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("username"))
   );
-  // console.log(user);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [inVisible, setInVisible] = useState(true);
+  const [outVisible, OutInVisible] = useState(false);
+
   const api = useApi(token);
-  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const toastTopRight = useRef(null);
 
   useEffect(() => {
-    // handleLogOut();
+    if (!token) {
+      setInVisible(true);
+    } else {
+      setInVisible(false);
+      OutInVisible(true);
+    }
     return () => {};
-  }, [user]);
+  }, []);
 
-  async function handleLogOut() {
-    try {
-      await api.post("/logouthere");
-      localStorage.clear();
-      navigate("/");
-    } catch (error) {}
+  function handleLogIn() {
+    navigate("/log-in");
   }
 
   function logInHere(e) {
@@ -47,70 +58,131 @@ const Navigation = ({ cartItems, cartModal, openOrder }) => {
     }
   }
 
+  async function handleLogOut() {
+    try {
+      await api.post("/logouthere");
+      location.reload();
+      localStorage.clear();
+      setUser("");
+      navigate("/");
+    } catch (error) {}
+  }
+
+  const showMessage = (ref, danger) => {
+    const label = "You need to Log-Out your Personal Account";
+
+    ref.current.show({
+      severity: danger,
+      detail: label,
+      life: 3000,
+    });
+  };
+
+  function adminLog() {
+    if (!token) {
+      setMenuVisible(false);
+      navigate("admin/log-in");
+    } else {
+      showMessage(toastTopRight, "error");
+    }
+  }
+
+  function showHome(e) {
+    e.preventDefault();
+    setMenuVisible(true);
+    navigate("/");
+  }
+  function showShop(e) {
+    e.preventDefault();
+    setMenuVisible(true);
+    navigate("/shop");
+  }
+  function showAbout(e) {
+    e.preventDefault();
+    setMenuVisible(true);
+    navigate("/about");
+  }
+
   return (
     <>
+      <Toast ref={toastTopRight} position="top-right" />
       <ConfirmDialog />
 
-      {/* <div className={color ? "navbar navbar-bg" : "navbar"}> */}
-      <Navbar expand="lg" bg="light" data-bs-theme="light" fixed="top">
-        <Container>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Row className="w-100 d-flex align-items-center">
-              <Col sm={4} className="">
-                <Nav className="me-auto">
-                  <ul>
-                    <Link className="navLink" to="/">
-                      HOME
-                    </Link>
-                  </ul>
-                  <ul>
-                    <Link className="navLink" to="/shop">
-                      SHOP
-                    </Link>
-                  </ul>
-                  {/* <ul>
-                    <Link className="navLink" to="/explore">
-                      EXPLORE
-                    </Link>
-                  </ul> */}
-                </Nav>
-              </Col>
-              <Col sm={4} className="d-flex justify-content-center">
-                <img src={logo} height={50} />
-              </Col>
-              <Col
-                sm={4}
-                className="d-flex justify-content-end gap-4 align-items-center"
-              >
-                <div className="d-flex align-items-center gap-2">
-                  <p className="p-0 m-0 fs-5 ">
-                    Hello! <b className="fs-5">{`${user?.username}`}</b>
-                  </p>
-                  <UserOutlined onClick={logInHere} />
-                </div>
+      <Navbar
+        expand="lg"
+        bg="light"
+        data-bs-theme="light"
+        fixed="top"
+        className=""
+      >
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Row className="w-100 d-flex align-items-center m-0">
+            <Col sm={4} className="">
+              <Nav className="me-auto d-flex justify-content-center">
+                <ul>
+                  <Link className="navLink" onClick={showHome}>
+                    HOME
+                  </Link>
+                </ul>
+                <ul>
+                  <Link className="navLink" onClick={showShop}>
+                    SHOP
+                  </Link>
+                </ul>
+                <ul>
+                  <Link className="navLink" onClick={showAbout}>
+                    ABOUT
+                  </Link>
+                </ul>
+              </Nav>
+            </Col>
+            <Col sm={3} className="d-flex justify-content-center">
+              <img src={logo} height={50} />
+            </Col>
+            <Col
+              sm={5}
+              className="d-flex justify-content-end gap-4 align-items-center colBox  px-0"
+            >
+              {menuVisible && (
+                <div className="d-flex justify-content-end gap-4 align-items-center">
+                  <div className="d-flex align-items-center gap-2">
+                    <p className="p-0 m-0 fs-5" id="user">
+                      {user?.first_name}
+                    </p>
+                    <UserOutlined onClick={logInHere} />
+                  </div>
 
-                <div className="cartNum">
-                  <ShoppingCartOutlined onClick={cartModal} />
-                  <span className="cartNum2">
-                    {cartItems.length === 0 ? "" : cartItems.length}
-                  </span>
+                  <div className="cartNum" onClick={cartModal}>
+                    <ShoppingCartOutlined className="cart" />
+                    <p className="cartNum2">
+                      {cartItems.length === 0 ? "" : cartItems.length}
+                    </p>
+                  </div>
+                  {inVisible && (
+                    <Button className="px-4 logInBtn" onClick={handleLogIn}>
+                      LOG IN
+                    </Button>
+                  )}
+                  {outVisible && (
+                    <Button className="logOutBtn" onClick={handleLogOut} link>
+                      Log Out
+                    </Button>
+                  )}
                 </div>
-                <span
-                  className="pi pi-truck"
-                  style={{ fontSize: "2rem" }}
-                  onClick={openOrder}
-                />
+              )}
 
-                <Button className="px-4 logOutBtn" onClick={handleLogOut}>
-                  Log Out
-                </Button>
-              </Col>
-            </Row>
-          </Navbar.Collapse>
-        </Container>
+              <div className="adminContainer m-0 d-flex justify-content-center align-items-center">
+                <SelectOutlined className="adminIcon" />
+                <p className="admin m-0" onClick={adminLog}>
+                  Admin Access
+                </p>
+              </div>
+            </Col>
+          </Row>
+        </Navbar.Collapse>
+        {/* </Container> */}
       </Navbar>
-      {/* </div> */}
     </>
   );
 };

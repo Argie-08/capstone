@@ -21,21 +21,20 @@ const shop = ({
   setVisible,
   secondData,
   setVisibleRight,
+  priceData,
 }) => {
   const navigate = useNavigate();
   const api = useApi();
-  // const [visibleRight, setVisibleRight] = useState(false);
   const [firstData, setFirstData] = useState([]);
   const [filterButton, setFilterButton] = useState([]);
   const [filterGaming, setFilterGaming] = useState([]);
   const [products, setProducts] = useState([]);
   const [searchItem, setSearchItem] = useState([]);
+  const [file, setFile] = useState([]);
   const [search, setSearch] = useState("");
-  // const [ramdom, setRandom] = useState("");
 
   useEffect(() => {
     getProduct();
-    getFilter();
 
     return () => {};
   }, []);
@@ -51,6 +50,13 @@ const shop = ({
     setFilterGaming(data);
     setProducts(data);
     setSearchItem(data);
+
+    const specificProperty = "price";
+    const values = data
+      .filter((data) => data.hasOwnProperty(specificProperty))
+      .map((data) => data[specificProperty]);
+
+    setFile(values);
   }
 
   async function getFilter() {
@@ -89,6 +95,11 @@ const shop = ({
     setFilterGaming(filter);
   }
 
+  const shopPrice = priceData.toLocaleString("en-PH", {
+    style: "currency",
+    currency: "PHP",
+  });
+
   return (
     <>
       <Row className="navBarz"></Row>
@@ -100,8 +111,8 @@ const shop = ({
           </p>
         </div>
 
-        <Col className="storeHeroOver">
-          <Row>
+        <Col className="storeHeroOver d-flex flex-column justify-content-center ">
+          <Row className="d-flex align-items-center justify-content-center">
             <Col md={12} className="d-flex py-3 w-100">
               <Col xs={4}>
                 <button
@@ -169,7 +180,7 @@ const shop = ({
                       {product.name}
                     </Card.Title>
 
-                    <div className="d-flex justify-content-between align-items-center mt-5">
+                    <div className="shopModalBottom">
                       <Card.Text className="storeProd2">
                         Php {product.price}
                       </Card.Text>
@@ -194,27 +205,25 @@ const shop = ({
         breakpoints={{ "960px": "75vw", "641px": "100vw" }}
         className="dialogPad"
       >
-        <Row>
-          <Col className="topModal">
-            <p className="shopMod">YOU HAD GREAT TASTE</p>
-          </Col>
-        </Row>
-        <Row>
-          {secondData ? (
-            <div className="d-flex my-4">
-              <Col sm={6} xs={12} className="modalBgT">
+        <div className="modalBtnBottom">
+          <p className="shopMod">{secondData.name}</p>
+        </div>
+        {secondData ? (
+          <Container>
+            <Row className="d-flex my-4 gap-4 justify-content-center">
+              <Col sm={5} className="modalBgT">
                 <img
                   src={`${images}/${secondData.image}`}
                   alt=""
                   className="modalImage"
                 />
               </Col>
-              <Col sm={6} xs={12} className="px-3 lineThis">
+              <Col sm={6} className="px-3 lineThis">
                 <p className="modalT2">{secondData.details}</p>
 
                 <div className="d-flex justify-content-between">
                   <p>Price</p>
-                  <p className="modlT3">Php {secondData.price}</p>
+                  <p className="modlT3">{shopPrice}</p>
                 </div>
 
                 <Button className="w-100 storeBtn mb-3" onClick={addtoCart}>
@@ -228,27 +237,9 @@ const shop = ({
                   CONTINUE SHOPPING
                 </Button>
               </Col>
-            </div>
-          ) : null}
-        </Row>
-
-        {/* <h3 className="mb-2">You Might Also Like</h3>
-        <Row className="mb-3">
-          <Col md={3}>
-            <Card>
-              <Card.Img
-                variant="top"
-                src="holder.js/100px180"
-                className="storeImg2"
-              />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>Some quick example</Card.Text>
-                <div className="d-flex justify-content-end align-items-end"></div>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row> */}
+            </Row>
+          </Container>
+        ) : null}
       </Dialog>
     </>
   );

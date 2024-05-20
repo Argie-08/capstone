@@ -4,14 +4,9 @@
   object-fit: cover;
 }
 .carouselText {
-  position: absolute;
-  text-align: center;
-  color: #ffff;
-  font-size: 3rem;
+  color: #ffc894;
+  font-size: clamp(3rem, 2rem + 4vw, 5rem);
   font-weight: 800;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
   text-shadow: -2px 2px 0 #000, 2px 2px 0 #000, 2px -2px 0 #000,
     -2px -2px 0 #000;
 }
@@ -20,4 +15,28 @@
 }
 .carousel-indicators {
   visibility: hidden;
+}
+.carouselBtn {
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffc894;
+  border: solid 1px #ffffffad !important;
+  font-size: clamp(1.5rem, 1.2857rem + 0.9524vw, 2rem);
+  font-weight: 700;
+  border: 0;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  transition: 0.3s;
+}
+.carouselBtn:hover {
+  box-shadow: 0px 5px 5px 1px #ffc894;
+  color: #ffff;
+}
+.containerModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.textRed {
+  color: #fd1c1ce3;
 }

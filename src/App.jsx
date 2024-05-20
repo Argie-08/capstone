@@ -16,31 +16,36 @@ import Shop from "./view/Shop";
 import Register from "./view/Register";
 import LogIn from "./view/LogIn";
 import CheckOut from "./view/CheckOut";
+import AdminLog from "./view/AdminLog";
+import Admin from "./view/Admin";
+import About from "./view/About";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
 import { Toast } from "primereact/toast";
 import useApi from "./utils/http";
-
-// export const Context = React.createContext();
+import { TruckOutlined } from "@ant-design/icons";
 
 const images = import.meta.env.VITE_IMAGES;
 
 const App = () => {
-  const api = useApi();
   const navigate = useNavigate();
+
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("username"))
   );
+
   const toast = useRef(null);
   const [cartItems, setCartItems] = useState([]);
   const [visible, setVisible] = useState(false);
   const [secondData, setSecondData] = useState([]);
+  const [priceData, setPriceData] = useState([]);
   const [visibleRight, setVisibleRight] = useState(false);
   const [orderRight, setOrderRight] = useState(false);
   const [open, setOpen] = useState(false);
-  // const [idNum, setIdNum] = useState([]);
+  const [show, setShow] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(true);
 
   useEffect(() => {
     navIcon();
@@ -48,14 +53,8 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // Test();
     return () => {};
   }, []);
-
-  // async function Test() {
-  //   const { data } = await api.get("/products");
-  //   setIdNum(data);
-  // }
 
   const [data, setData] = useState("");
 
@@ -73,6 +72,7 @@ const App = () => {
     } else {
       setVisible(true);
       setSecondData(data);
+      setPriceData(data.price);
 
       const productExist = cartItems.find((item) => item.id === data.id);
       if (productExist) {
@@ -137,6 +137,7 @@ const App = () => {
         detail: "You needs to log-in",
       });
     } else {
+      setShow(false);
       setVisibleRight(true);
       setOpen(false);
       const productExist = cartItems.find((item) => item.id === data.id);
@@ -182,14 +183,20 @@ const App = () => {
     setOrderRight(true);
   }
 
+  const totalPrices = totalPrice.toLocaleString("en-PH", {
+    style: "currency",
+    currency: "PHP",
+  });
+
   return (
     <>
       <Toast ref={toast} />
       <Navigation
-        user={user}
         cartItems={cartItems}
         cartModal={cartModal}
         openOrder={openOrder}
+        menuVisible={menuVisible}
+        setMenuVisible={setMenuVisible}
       />
       <Routes>
         <Route
@@ -199,6 +206,8 @@ const App = () => {
               handleAddCartHome={handleAddCartHome}
               setOpen={setOpen}
               open={open}
+              setShow={setShow}
+              show={show}
             />
           }
         />
@@ -215,12 +224,19 @@ const App = () => {
               secondData={secondData}
               setSecondData={secondData}
               setVisibleRight={setVisibleRight}
+              priceData={priceData}
             />
           }
         />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/explore" element={<Explore />} />
         <Route path="/register" element={<Register />} />
         <Route path="/log-in" element={<LogIn />} />
+        <Route
+          path="/admin"
+          element={<Admin setMenuVisible={setMenuVisible} />}
+        />
+        <Route path="/about" element={<About />} />
         <Route
           path="/checkout"
           element={
@@ -229,18 +245,24 @@ const App = () => {
               user={user}
               totalPrice={totalPrice}
               placeOrder={placeOrder}
+              setCartItems={setCartItems}
             />
           }
         />
+        <Route path="/admin/log-in" element={<AdminLog />} />
       </Routes>
       <Footer />
       <Sidebar
         visible={visibleRight}
         position="right"
         onHide={() => setVisibleRight(false)}
+        className="sideBarBg"
       >
         <Row>
-          <p className="freeShip">STANDARD FREE SHIPPING</p>
+          <Col className="d-flex gap-3 sideBarUnderLine">
+            <p className="freeShip m-0">STANDARD FREE SHIPPING</p>
+            <TruckOutlined />
+          </Col>
         </Row>
 
         <Row>
@@ -280,7 +302,7 @@ const App = () => {
                 );
               })}
               <div className="d-flex justify-content-end my-3">
-                <div className="total">GRAND TOTAL: {totalPrice}</div>
+                <div className="total">GRAND TOTAL: {totalPrices}</div>
               </div>
               <Button
                 className="storeBtn w-100"

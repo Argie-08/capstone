@@ -46,7 +46,9 @@ const Highlight = (data) => {
                   high standards.
                 </Card.Text>
               </Card.Body>
-              <Button onClick={handleGaming}>SHOP NOW</Button>
+              <Button className="test2" onClick={handleGaming}>
+                SHOP NOW
+              </Button>
             </Card>
           </Col>
           <Col md={6} className="test">
@@ -63,7 +65,9 @@ const Highlight = (data) => {
                   of executive and higher level office personnel
                 </Card.Text>
               </Card.Body>
-              <Button onClick={handleOffice}>SHOP NOW</Button>
+              <Button className="test2" onClick={handleOffice}>
+                SHOP NOW
+              </Button>
             </Card>
           </Col>
         </Row>

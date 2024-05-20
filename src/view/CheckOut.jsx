@@ -13,13 +13,15 @@ import image2 from "../assets/paymaya.png";
 import image3 from "../assets/gcash.png";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
-
-// import { Context } from "./App";
+import { message } from "antd";
 
 const images = import.meta.env.VITE_IMAGES;
 
-const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
+const CheckOut = ({ cartItems, totalPrice, placeOrder, setCartItems }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("username"))
+  );
   const [file, setFile] = useState([]);
   const [users, setUsers] = useState();
   const [review, setReview] = useState("");
@@ -31,15 +33,31 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
   const [contact, setContact] = useState("");
   const [id, setIdone] = useState("");
   const [loggedUser, setLoggedUser] = useState("");
-  // const [product, setProduct] = useState("");
   const navigate = useNavigate();
   const api = useApi(token);
+
+  const name = user.first_name;
+  const lastName = user.last_name;
+  const myAddress = user.address;
+  const optionLandmark = user.landmark;
+  const emailer = user.email;
+  const contactNum = user.contact_number;
 
   const totalAmount = totalPrice.toLocaleString("en-PH", {
     style: "currency",
     currency: "PHP",
   });
 
+  const [messageApi, contextHolder] = message.useMessage();
+  const info = () => {
+    messageApi.info(
+      "Successfully Placed Order, confirmation email will be sent your inbox"
+    );
+    setTimeout(() => {
+      navigate("/");
+      window.location.reload();
+    }, 4000);
+  };
   useEffect(() => {
     setData();
     setPerson();
@@ -115,21 +133,15 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
   const productTotal = useRef("");
   const value4 = productTotal.current.innerText;
 
-  async function placeOrder(data) {
-    // const orders = { orders: data };
-    // const createOrder = await api.post("/order", body);
-    // navigate("/");
+  async function placeOrder(e) {
+    e.preventDefault();
   }
-
-  // console.log(value1);
-  // console.log(value2);
-  // console.log(value3);
-  // console.log(value4);
 
   return (
     <>
+      {contextHolder}
       <Row className="navBarz"></Row>
-      <Container>
+      <Container className="my-5 ">
         <Row>
           <Col md={6}>
             <div className="">
@@ -152,10 +164,9 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
                     <label htmlFor="username">Complete Address</label>
 
                     <InputText
-                      defaultValue={loggedUser.address}
+                      defaultValue={myAddress}
                       className="p-1 ps-3 m-0 mb-3"
                       aria-describedby="username-help"
-                      // placeholder={`${loggedUser?.address}`}
                       onChange={(e) => setAddress(e.target.defaultValue)}
                     />
                   </div>
@@ -168,10 +179,9 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
                       Apartment, suite, barangay, etc (Optional)
                     </label>
                     <InputText
-                      defaultValue={loggedUser.landmark}
+                      defaultValue={optionLandmark}
                       className="p-1 ps-3 m-0 mb-3"
                       aria-describedby="username-help"
-                      placeholder="Optional"
                       onChange={(e) => setLandmark(e.target.defaultValue)}
                     />
                   </div>
@@ -182,10 +192,9 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
                   <div className="d-flex flex-column">
                     <label htmlFor="username">First Name</label>
                     <InputText
-                      defaultValue={loggedUser.first_name}
+                      defaultValue={name}
                       className="p-1 ps-3 m-0 mb-3"
                       aria-describedby="username-help"
-                      placeholder={`${loggedUser?.first_name}`}
                       onChange={(e) => setFirstname(e.target.defaultValue)}
                     />
                   </div>
@@ -194,10 +203,9 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
                   <div className="d-flex flex-column">
                     <label htmlFor="username">Last Name</label>
                     <InputText
-                      defaultValue={loggedUser.last_name}
+                      defaultValue={lastName}
                       className="p-1 ps-3 m-0 mb-3"
                       aria-describedby="username-help"
-                      placeholder={`${loggedUser?.last_name}`}
                       onChange={(e) => setLastname(e.target.defaultValue)}
                     />
                   </div>
@@ -208,10 +216,9 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
                   <div className="d-flex flex-column">
                     <label htmlFor="username">Email</label>
                     <InputText
-                      defaultValue={loggedUser.email}
+                      defaultValue={emailer}
                       className="p-1 ps-3 m-0 mb-3"
                       aria-describedby="username-help"
-                      placeholder={`${loggedUser?.email}`}
                       onChange={(e) => setEmail(e.target.defaultValue)}
                     />
                   </div>
@@ -222,11 +229,10 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
                   <div className="d-flex flex-column">
                     <label htmlFor="username">Contact Number</label>
                     <InputText
-                      defaultValue={loggedUser.contact_number}
+                      defaultValue={contactNum}
                       id="username"
                       className="p-1 ps-3 m-0 mb-3"
                       aria-describedby="username-help"
-                      placeholder={`${loggedUser?.contact_number}`}
                       onChange={(e) => setContact(e.target.defaultValue)}
                     />
                   </div>
@@ -252,11 +258,11 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
             </form>
           </Col>
 
-          <Col md={6} className="border ">
+          <Col md={6} className="border borderTop">
             {file.map((productItem, i) => {
               return (
                 <div className="border" key={i}>
-                  <div className="d-flex align-items-center justify-space-between">
+                  <div className="d-flex align-items-center justify-space-between p-3 gap-3">
                     <img
                       src={`${images}/${productItem.image}`}
                       className="outImg"
@@ -274,7 +280,9 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
                   <div className="d-flex justify-content-end pe-5">
                     <p>
                       <span> QUANTITY:</span>
-                      <span ref={productQuantity}>{productItem.quantity}</span>
+                      <span ref={productQuantity}>
+                        <b className="ps-2">{productItem.quantity}</b>
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -286,11 +294,9 @@ const CheckOut = ({ cartItems, user, totalPrice, placeOrder }) => {
                 {totalAmount}
               </span>
             </p>
+
             <div className="d-flex justify-content-end align-items-center m-0">
-              <button
-                className=" px-5 py-1 storeBtn30"
-                onClick={() => placeOrder(cartItems)}
-              >
+              <button className=" px-5 py-1 storeBtn30" onClick={info}>
                 PLACE ORDER
               </button>
             </div>

@@ -8,7 +8,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Home.css";
 
-const Home = ({ handleAddCartHome, setOpen, open }) => {
+const Home = ({ handleAddCartHome, setOpen, open, setShow, show }) => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState(
@@ -32,6 +32,8 @@ const Home = ({ handleAddCartHome, setOpen, open }) => {
         handleAddCartHome={handleAddCartHome}
         setOpen={setOpen}
         open={open}
+        setShow={setShow}
+        show={show}
       />
 
       <BuildVideos />

@@ -64,9 +64,6 @@
   align-items: baseline;
   justify-content: end;
   gap: 2rem;
-  position: absolute;
-  bottom: 0;
-  right: 0;
 }
 .ant-modal-close-x {
   visibility: hidden;
@@ -97,4 +94,8 @@
 }
 .ant-modal-content {
   background-color: #d4d2d2 !important;
+}
+.modalProduct {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #ffff;
 }

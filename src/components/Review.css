@@ -1,21 +1,47 @@
 .carouselHght {
   height: 100%;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.9);
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
-  border: solid 3px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5;
+  position: relative;
 }
 .review {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 1.2857rem + 0.9524vw, 2rem);
   font-weight: 600;
 }
 .reviewSub {
-  font-size: 1.8rem;
+  font-size: clamp(1.2rem, 0.9429rem + 1.1429vw, 1.8rem);
   text-align: center;
 }
 .reviewSwipe {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 0.9143rem + 0.381vw, 1.2rem);
+  text-align: center;
+}
+.reviewBorderTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom: solid 1px #ffffff;
+  height: 20px;
+
+  width: 100%;
+}
+.modalStar svg {
+  color: yellow;
+  width: clamp(1.25rem, 1.19vw + 0.893rem, 2.083rem);
+}
+.starPos {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding-top: 2rem;
+}
+.limitText {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

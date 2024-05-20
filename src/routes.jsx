@@ -9,7 +9,7 @@ import { Route, Routes } from "react-router-dom";
 const routes = () => {
   return (
     <div>
-      <Routes>
+      {/* <Routes>
         <Route path="/" exact>
           <Home />
         </Route>
@@ -28,7 +28,7 @@ const routes = () => {
         <Route path="/checkout" exact>
           <CheckOut />
         </Route>
-      </Routes>
+      </Routes> */}
     </div>
   );
 };

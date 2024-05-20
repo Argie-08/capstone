@@ -2,21 +2,19 @@ import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
 import { Button } from "primereact/button";
 import { Carousel } from "primereact/carousel";
-import { Tag } from "primereact/tag";
-import { Modal } from "antd";
+import Modal from "react-bootstrap/Modal";
 import useApi from "../utils/http";
 import "./Featured.css";
 
 const images = import.meta.env.VITE_IMAGES;
 
-const Featured = ({ handleAddCartHome, setOpen, open }) => {
+const Featured = ({ handleAddCartHome, setOpen, open, setShow, show }) => {
   const [products, setProducts] = useState([]);
-  const [producted, setProducted] = useState([]);
+  const [productTest, setProductTest] = useState([]);
+  const [producted, setProducted] = useState(0);
   const api = useApi();
-  // const [open, setOpen] = useState(false);
 
   useEffect(() => {
     async function getFile() {
@@ -27,6 +25,7 @@ const Featured = ({ handleAddCartHome, setOpen, open }) => {
       setProducts(second);
     }
     getFile();
+
     return () => {};
   }, []);
 
@@ -53,22 +52,16 @@ const Featured = ({ handleAddCartHome, setOpen, open }) => {
     },
   ];
 
-  function getFile(data) {
-    setProducted(data);
-  }
-
   function carouSubmit(e) {
     e.preventDefault();
-    setOpen(true);
+  }
+  function handleClose() {
+    setShow(false);
   }
 
   const productTemplate = (product) => {
     return (
-      <form
-        className="carouselHeight"
-        onSubmit={carouSubmit}
-        onClick={() => getFile(product)}
-      >
+      <form className="carouselHeight" onSubmit={carouSubmit}>
         <div className="border-1  m-2 text-center py-4 px-3 carouselHeight2">
           <div className="mb-3">
             <img src={`${images}/${product.image}`} className="imgHeight" />
@@ -77,12 +70,27 @@ const Featured = ({ handleAddCartHome, setOpen, open }) => {
             <h4 className="productAText">{product.name}</h4>
           </div>
           <div className="mt-5 flex flex-wrap gap-2 justify-content-center checkText">
-            <Button label="CHECK IT OUT" className="storeBtn px-4 py-2" />
+            <Button
+              label="CHECK IT OUT"
+              className="storeBtn px-4 py-2"
+              onClick={() => modalStart(product)}
+            />
           </div>
         </div>
       </form>
     );
   };
+
+  function modalStart(data) {
+    setProducted(data);
+    setShow(true);
+    setProductTest(data.price);
+  }
+
+  const featuredPrice = productTest.toLocaleString("en-PH", {
+    style: "currency",
+    currency: "PHP",
+  });
 
   return (
     <>
@@ -108,37 +116,44 @@ const Featured = ({ handleAddCartHome, setOpen, open }) => {
           />
         </div>
       </Container>
-      {producted ? (
-        <Modal centered open={open} width={1000}>
-          <Row className="h-100">
-            <Col md={6}>
+      <Modal show={show} onHide={handleClose} centered size="lg">
+        <Modal.Header className="modalProduct px-5">
+          <Modal.Title>PRODUCT DETAILS</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="p-5">
+          <Row className="d-flex gap-4 justify-content-center">
+            <Col md={5}>
               <img
                 src={`${images}/${producted.image}`}
                 alt=""
                 className="modalImagezz"
               />
             </Col>
-            <Col md={6} className="pt-4 modalBox">
+            <Col md={6}>
               <h4 className="mTitle mb-3">{producted.name}</h4>
-              <p className="mTitle2">Php {producted.price}</p>
+              <p className="mTitle2" id="phpCurrency">
+                {featuredPrice}
+              </p>
               <p className="">{producted.details}</p>
-              <div className="modalBtn p-3">
-                <Button
-                  label="CONTINUE SHOPPING"
-                  className="continueBtn"
-                  onClick={() => setOpen(false)}
-                  link
-                ></Button>
-                <Button
-                  label="ADD TO CART & CHECK OUT"
-                  className="storeBtnz px-4 py-2"
-                  onClick={() => handleAddCartHome(producted)}
-                ></Button>
-              </div>
             </Col>
           </Row>
-        </Modal>
-      ) : null}
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="modalBtn">
+            <Button
+              label="CONTINUE SHOPPING"
+              className="continueBtn"
+              onClick={() => setShow(false)}
+              link
+            ></Button>
+            <Button
+              label="ADD TO CART & CHECK OUT"
+              className="storeBtnz px-4 py-2"
+              onClick={() => handleAddCartHome(producted)}
+            ></Button>
+          </div>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

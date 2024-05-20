@@ -2,8 +2,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState, useEffect } from "react";
-import { Card } from "primereact/card";
 import { Carousel } from "primereact/carousel";
+import { StarOutlined } from "@ant-design/icons";
 import "./Review.css";
 import useApi from "../utils/http";
 
@@ -48,12 +48,23 @@ const Reviews = () => {
   const productTemplate = (product) => {
     return (
       <div className="border-1  m-2 text-center py-4 px-3 carouselHght">
-        {/* <div className="mb-3">
-          <img src="" className="imgHeight" />
-        </div> */}
-        <div className="">
-          <h4 className=" mt-2">{product.content}</h4>
-        </div>
+        <Container>
+          <Row className="d-flex flex-column">
+            <Col className="reviewBorderTop"></Col>
+          </Row>
+          <Row>
+            <Col className="text-white mb-5 mt-2 limitText">
+              " {product.content} "
+            </Col>
+            <span className="starPos">
+              <StarOutlined className="modalStar mb-3" />
+              <StarOutlined className="modalStar" />
+              <StarOutlined className="modalStar" />
+              <StarOutlined className="modalStar" />
+              <StarOutlined className="modalStar" />
+            </span>
+          </Row>
+        </Container>
       </div>
     );
   };

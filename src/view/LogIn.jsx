@@ -9,17 +9,14 @@ import { Toast } from "primereact/toast";
 import "./LogIn.css";
 import useApi from "../utils/http";
 import Pic from "../assets/login.png";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
-const LogIn = () => {
+const LogIn = (user = { user }) => {
   const api = useApi();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const toast = useRef(null);
-
-  useEffect(() => {
-    return () => {};
-  }, []);
 
   async function handleLogIn(e) {
     e.preventDefault();
@@ -31,6 +28,7 @@ const LogIn = () => {
       setUsername("");
       setPassword("");
       navigate("/");
+      window.location.reload();
     } catch (error) {
       toast.current.show({
         severity: "error",
@@ -55,20 +53,31 @@ const LogIn = () => {
           </Col>
           <Col md={5} className="p-5 rightbg">
             <p className="welcome">HELLO! Welcome back</p>
-            <form onSubmit={handleLogIn}>
-              <Input
-                value={username}
-                placeholder="Username"
-                className="mb-3"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <Input
-                value={password}
-                placeholder="Password"
-                type="password"
-                className="mb-3"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+            <form onSubmit={handleLogIn} className="userInput">
+              <div className="w-100 m-0 p-0 userIconex">
+                <Input
+                  value={username}
+                  placeholder="Username"
+                  className="mb-3 ps-5"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <span>
+                  <UserOutlined className="userIcon" />
+                </span>
+              </div>
+              <div className="userIconie">
+                <Input
+                  value={password}
+                  placeholder="Password"
+                  type="password"
+                  className="mb-3 ps-5"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <span>
+                  <LockOutlined className="password" />
+                </span>
+              </div>
+
               <div className="d-flex flex-column justify-content-end">
                 <Button
                   label="Log In"
