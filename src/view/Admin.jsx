@@ -157,7 +157,7 @@ const Admin = (setMenuVisible) => {
       });
 
       getProduct();
-      setIsVisible(true);
+      // setIsVisible(true);
     } catch (error) {
       messageApi.open({
         type: "error",
