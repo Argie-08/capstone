@@ -185,7 +185,7 @@ const shop = ({
                         Php {product.price}
                       </Card.Text>
                       <Button
-                        className="storeBtn"
+                        className="storeBtnBtn"
                         onClick={() => handleAddCart(product)}
                       >
                         ADD TO CART
@@ -226,7 +226,7 @@ const shop = ({
                   <p className="modlT3">{shopPrice}</p>
                 </div>
 
-                <Button className="w-100 storeBtn mb-3" onClick={addtoCart}>
+                <Button className="w-100 storeBtnBtn mb-3" onClick={addtoCart}>
                   VIEW CART & CHECK OUT
                 </Button>
 

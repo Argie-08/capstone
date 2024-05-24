@@ -301,11 +301,11 @@ const App = () => {
                   </div>
                 );
               })}
-              <div className="d-flex justify-content-end my-3">
-                <div className="total">GRAND TOTAL: {totalPrices}</div>
+              <div className="d-flex justify-content-end my-3 mb-5 totalTopLine">
+                <div className="total pt-3">GRAND TOTAL: {totalPrices}</div>
               </div>
               <Button
-                className="storeBtn w-100"
+                className="storeBtnOut w-100 py-2"
                 onClick={() => checkOut(cartItems)}
               >
                 PROCEED TO CHECKOUT

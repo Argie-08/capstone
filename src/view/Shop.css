@@ -31,7 +31,17 @@
   border: solid 2px rgba(0, 0, 0, 0.9);
   border-radius: 0;
 }
+.storeBtnBtn {
+  background: rgba(0, 0, 0, 0.9);
+  border: solid 2px rgba(0, 0, 0, 0.9);
+  border-radius: 0;
+}
 .storeBtn:hover {
+  background: #ffff;
+  color: #000;
+  border: solid 2px rgba(0, 0, 0, 0.9);
+}
+.storeBtnBtn:hover {
   background: #ffff;
   color: #000;
   border: solid 2px rgba(0, 0, 0, 0.9);

@@ -4,11 +4,9 @@
   filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.3));
 }
 .ImgSize {
-  height: 400px;
   width: 100%;
   overflow: hidden;
   position: relative;
-  /* background: #000; */
 }
 
 .ImgSize::before {
@@ -87,4 +85,24 @@
 }
 .lineBtn {
   border-bottom: solid 1px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 575px) {
+  .ImgSize {
+    height: 300px;
+  }
+}
+@media (min-width: 576px) {
+  .ImgSize {
+    height: 300px;
+  }
+}
+@media (min-width: 768px) {
+  .ImgSize {
+    height: 400px;
+  }
+}
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
 }

@@ -16,6 +16,8 @@ import logo from "../assets/logo.png";
 import useApi from "../utils/http";
 import { Toast } from "primereact/toast";
 import "./Navigation.css";
+import Container from "react-bootstrap/Container";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 const Navigation = ({
   cartItems,
@@ -109,6 +111,76 @@ const Navigation = ({
       <ConfirmDialog />
 
       <Navbar
+        key="md "
+        expand="md"
+        className="bg-body-tertiary mb-3 px-5"
+        fixed="top"
+      >
+        <Container fluid>
+          <Navbar.Brand href="#">
+            <img src={logo} height={50} onClick={showHome} />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md" />
+          <Navbar.Offcanvas
+            id="offcanvasNavbar-expand-md"
+            aria-labelledby="offcanvasNavbarLabel-expand-md"
+            placement="start"
+          >
+            <Offcanvas.Header closeButton></Offcanvas.Header>
+            <Offcanvas.Body className="">
+              {menuVisible && (
+                <Nav className="justify-content-end flex-grow-1 pe-3 navSpace">
+                  <Nav.Link className="navLink" onClick={showHome}>
+                    HOME
+                  </Nav.Link>
+                  <Nav.Link className="navLink" onClick={showShop}>
+                    SHOP
+                  </Nav.Link>
+                  <Nav.Link className="navLink" onClick={showAbout}>
+                    ABOUT
+                  </Nav.Link>
+
+                  <div className="d-flex align-items-center">
+                    <p className="p-0 m-0 fs-5 userTextColor" id="user">
+                      {user?.first_name}
+                    </p>
+                    <UserOutlined onClick={logInHere} />
+                  </div>
+                  <div className="cartNum" onClick={cartModal}>
+                    <ShoppingCartOutlined className="cart" />
+                    <p className="cartNum2">
+                      {cartItems.length === 0 ? "" : cartItems.length}
+                    </p>
+                  </div>
+                  {inVisible && (
+                    <Button
+                      className="px-4 logInBtn"
+                      onClick={handleLogIn}
+                      label="LOG-IN"
+                    />
+                  )}
+                  {outVisible && (
+                    <Button
+                      className="logOutBtn"
+                      onClick={handleLogOut}
+                      link
+                      label="LOG-OUT"
+                    />
+                  )}
+                </Nav>
+              )}
+              <div className="adminContainer m-0 d-flex justify-content-center align-items-center">
+                <SelectOutlined className="adminIcon" />
+                <p className="admin m-0" onClick={adminLog}>
+                  Admin Access
+                </p>
+              </div>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
+
+      {/* <Navbar
         expand="lg"
         bg="light"
         data-bs-theme="light"
@@ -177,7 +249,7 @@ const Navigation = ({
             </Row>
           </Nav>
         </Navbar.Collapse>
-      </Navbar>
+      </Navbar> */}
     </>
   );
 };

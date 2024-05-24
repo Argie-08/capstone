@@ -1,6 +1,5 @@
 .carouselHeight {
   height: 100%;
-  /* cursor: pointer; */
   position: relative;
   filter: blur(6x);
 }
@@ -17,7 +16,6 @@
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
 }
 .imgHeight {
-  height: 300px;
   width: 100%;
   object-fit: cover;
 }
@@ -28,14 +26,14 @@
 }
 .productAText {
   font-size: 1.2rem;
-  text-align: start;
+  text-align: center;
   margin-bottom: 2rem;
   font-weight: 400;
 }
-.checkText {
-  text-align: start;
+.storeBtn {
   position: absolute;
   bottom: 0;
+
   margin-bottom: 1rem;
 }
 .checkText2 {
@@ -98,4 +96,27 @@
 .modalProduct {
   background-color: rgba(0, 0, 0, 0.9);
   color: #ffff;
+}
+@media (max-width: 575px) {
+  .imgHeight {
+    height: 200px;
+  }
+}
+@media (min-width: 576px) {
+  .imgHeight {
+    height: 200px;
+  }
+}
+@media (min-width: 768px) {
+  .imgHeight {
+    height: 250px;
+  }
+}
+@media (min-width: 992px) {
+  .imgHeight {
+    height: 300px;
+  }
+}
+
+@media (min-width: 1200px) {
 }

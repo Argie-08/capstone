@@ -32,3 +32,16 @@
 .sideBarUnderLine {
   border-bottom: solid 1px rgba(0, 0, 0, 0.5);
 }
+.storeBtnOut {
+  background: rgba(0, 0, 0);
+  border: 0;
+  transition: 0.5s;
+}
+.storeBtnOut:hover {
+  background: transparent;
+  color: rgba(0, 0, 0);
+  border: solid 1px rgba(0, 0, 0);
+}
+.totalTopLine {
+  border-top: solid 1px rgba(0, 0, 0, 0.5);
+}

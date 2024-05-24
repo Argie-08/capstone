@@ -33,12 +33,13 @@ const Hero = () => {
           <Row className="d-flex gap-4">
             <img alt="" />
             <Col md={12} className="carouselText">
-              SUMMER HEAT! LET'S MAKE IT
-              <span className="carouselText textRed"> "RED HOT"</span>
+              QUALITY OVER QUANTITY
             </Col>
+
             <Col md={12} className="carouselHov">
               <button className="carouselBtn" onClick={shop}>
                 SHOP NOW
+                <span className="pi pi-prime text-white"></span>
               </button>
             </Col>
           </Row>

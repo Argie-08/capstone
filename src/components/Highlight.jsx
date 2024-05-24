@@ -34,7 +34,7 @@ const Highlight = (data) => {
           </Col>
         </Row>
         <Row className="mt-5">
-          <Col md={6} className="test">
+          <Col md={6} className="test mb-3">
             <Card className="card10">
               <div className="ImgSize">
                 <Card.Img src={Gaming} />
@@ -51,7 +51,7 @@ const Highlight = (data) => {
               </Button>
             </Card>
           </Col>
-          <Col md={6} className="test">
+          <Col md={6} className="test mb-3">
             <Card className="card10">
               <div className="ImgSize">
                 <Card.Img src={Office} />

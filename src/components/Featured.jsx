@@ -63,16 +63,14 @@ const Featured = ({ handleAddCartHome, setOpen, open, setShow, show }) => {
     return (
       <form className="carouselHeight" onSubmit={carouSubmit}>
         <div className="border-1  m-2 text-center py-4 px-3 carouselHeight2">
-          <div className="mb-3">
-            <img src={`${images}/${product.image}`} className="imgHeight" />
-          </div>
+          <img src={`${images}/${product.image}`} className="imgHeight" />
           <div className="topLine">
             <h4 className="productAText">{product.name}</h4>
           </div>
-          <div className="mt-5 flex flex-wrap gap-2 justify-content-center checkText">
+          <div className="w-100 d-flex justify-content-center pt-4">
             <Button
               label="CHECK IT OUT"
-              className="storeBtn px-4 py-2"
+              className="storeBtn px-4 py-2 "
               onClick={() => modalStart(product)}
             />
           </div>
