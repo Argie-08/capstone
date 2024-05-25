@@ -25,12 +25,13 @@ import Footer from "./components/Footer";
 import { Toast } from "primereact/toast";
 import useApi from "./utils/http";
 import { TruckOutlined } from "@ant-design/icons";
+import { message } from "antd";
 
 const images = import.meta.env.VITE_IMAGES;
 
 const App = () => {
   const navigate = useNavigate();
-
+  const [messageApi, contextHolder] = message.useMessage();
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("username"))
@@ -64,11 +65,13 @@ const App = () => {
 
   function handleAddCart(data) {
     if (!token) {
-      navigate("/log-in");
-      toast.current.show({
-        severity: "error",
-        detail: "You needs to log-in",
+      messageApi.open({
+        type: "error",
+        content: "You needs to Log-In",
       });
+      setTimeout(() => {
+        navigate("/log-in");
+      }, 2000);
     } else {
       setVisible(true);
       setSecondData(data);
@@ -131,11 +134,13 @@ const App = () => {
   function handleAddCartHome(data) {
     if (!token) {
       setOpen(false);
-      navigate("/log-in");
-      toast.current.show({
-        severity: "error",
-        detail: "You needs to log-in",
+      messageApi.open({
+        type: "error",
+        content: "You needs to Log-In",
       });
+      setTimeout(() => {
+        navigate("/log-in");
+      }, 2000);
     } else {
       setShow(false);
       setVisibleRight(true);
@@ -157,11 +162,13 @@ const App = () => {
 
   function cartModal() {
     if (!token) {
-      navigate("/log-in");
-      toast.current.show({
-        severity: "error",
-        detail: "You needs to log-in",
+      messageApi.open({
+        type: "error",
+        content: "You needs to Log-In",
       });
+      setTimeout(() => {
+        navigate("/log-in");
+      }, 2000);
     } else {
       setVisibleRight(true);
     }
@@ -169,11 +176,13 @@ const App = () => {
 
   function openOrder() {
     if (!token) {
-      navigate("/log-in");
-      toast.current.show({
-        severity: "error",
-        detail: "You needs to log-in",
+      messageApi.open({
+        type: "error",
+        content: "You needs to Log-In",
       });
+      setTimeout(() => {
+        navigate("/log-in");
+      }, 2000);
     } else {
       setOrderRight(true);
     }
@@ -191,6 +200,7 @@ const App = () => {
   return (
     <>
       <Toast ref={toast} />
+      {contextHolder}
       <Navigation
         cartItems={cartItems}
         cartModal={cartModal}
