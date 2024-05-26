@@ -10,24 +10,9 @@ import "./Featured.css";
 
 const images = import.meta.env.VITE_IMAGES;
 
-const Featured = ({ handleAddCartHome, setOpen, open, setShow, show }) => {
-  const [products, setProducts] = useState([]);
+const Featured = ({ handleAddCartHome, setShow, show, products }) => {
   const [productTest, setProductTest] = useState([]);
   const [producted, setProducted] = useState(0);
-  const api = useApi();
-
-  useEffect(() => {
-    async function getFile() {
-      const { data } = await api.get("/products");
-      const latest = data.reverse();
-      const second = latest.slice(0, 6);
-
-      setProducts(second);
-    }
-    getFile();
-
-    return () => {};
-  }, []);
 
   const responsiveOptions = [
     {

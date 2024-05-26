@@ -54,7 +54,6 @@ const Register = () => {
       setConfirmPassword("");
       navigate("/log-in");
     } catch (error) {
-      //   setErrors(error.response.data.errors);
       toast.current.show({
         severity: "error",
         detail: error.response.data.message,

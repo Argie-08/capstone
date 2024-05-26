@@ -4,21 +4,18 @@ import Featured from "../components/Featured";
 import BuildVideos from "../components/BuildVideos";
 import Testimonials from "../components/Testimonials";
 import Reviews from "../components/Reviews";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
-const Home = ({ handleAddCartHome, setOpen, open, setShow, show }) => {
+const Home = ({
+  handleAddCartHome,
+  setOpen,
+  open,
+  setShow,
+  show,
+  products,
+}) => {
   const navigate = useNavigate();
-
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("username"))
-  );
-  const [token, setToken] = useState(localStorage.getItem("token"));
-
-  useEffect(() => {
-    return () => {};
-  });
 
   function handleHere() {
     navigate("/shop");
@@ -34,6 +31,7 @@ const Home = ({ handleAddCartHome, setOpen, open, setShow, show }) => {
         open={open}
         setShow={setShow}
         show={show}
+        products={products}
       />
 
       <BuildVideos />

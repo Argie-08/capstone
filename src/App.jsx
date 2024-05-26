@@ -1,16 +1,12 @@
+import useApi from "./utils/http";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Navigation from "./components/Navigation";
-import { BrowserRouter as Router } from "react-router-dom";
 import { Sidebar } from "primereact/sidebar";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 import Button from "react-bootstrap/Button";
-import Routee from "./routes";
-import Explore from "./view/Explore";
 import Home from "./view/Home";
 import Shop from "./view/Shop";
 import Register from "./view/Register";
@@ -23,7 +19,6 @@ import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
 import { Toast } from "primereact/toast";
-import useApi from "./utils/http";
 import { TruckOutlined } from "@ant-design/icons";
 import { message } from "antd";
 
@@ -31,6 +26,7 @@ const images = import.meta.env.VITE_IMAGES;
 
 const App = () => {
   const navigate = useNavigate();
+  const api = useApi();
   const [messageApi, contextHolder] = message.useMessage();
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(
@@ -47,6 +43,7 @@ const App = () => {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [menuVisible, setMenuVisible] = useState(true);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     navIcon();
@@ -54,6 +51,15 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    async function getFile() {
+      const { data } = await api.get("/products");
+      const latest = data.reverse();
+      const second = latest.slice(0, 6);
+
+      setProducts(second);
+    }
+    getFile();
+
     return () => {};
   }, []);
 
@@ -218,6 +224,7 @@ const App = () => {
               open={open}
               setShow={setShow}
               show={show}
+              products={products}
             />
           }
         />
@@ -238,8 +245,7 @@ const App = () => {
             />
           }
         />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/explore" element={<Explore />} />
+
         <Route path="/register" element={<Register />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route
@@ -332,12 +338,6 @@ const App = () => {
         <Row>
           <p>ORDER</p>
           <h1>IN PROGRESS(still coding)</h1>
-        </Row>
-
-        <Row>
-          <Col xs={12}></Col>
-
-          <Col xs={12}></Col>
         </Row>
       </Sidebar>
     </>

@@ -4,7 +4,6 @@ import Col from "react-bootstrap/Col";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
-import { Input } from "antd";
 import "./CheckOut.css";
 import { useState, useEffect } from "react";
 import useApi from "../utils/http";
