@@ -3,7 +3,7 @@
   width: 100%;
 }
 .adminForm {
-  height: 50%;
+  height: fit-content;
   width: 350px;
   padding: 20px;
   border: solid 1px rgba(0, 0, 0, 0.1);
@@ -52,4 +52,13 @@
   height: 100%;
   font-size: 0.5rem;
   padding-left: 0.5rem;
+}
+.adminCredentials {
+  width: 100%;
+
+  border: solid 1px rgba(0, 128, 0, 0.555);
+  border-radius: 1rem;
+}
+.adminUser {
+  font-size: clamp(0.8rem, 0.6571rem + 0.4571vw, 1rem) !important;
 }

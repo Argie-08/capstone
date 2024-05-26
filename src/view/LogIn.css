@@ -70,3 +70,8 @@
   width: 20px;
   opacity: 50%;
 }
+.userdetails {
+  border: solid 1px rgba(0, 128, 0, 0.582);
+  border-radius: 1rem;
+  margin: auto;
+}

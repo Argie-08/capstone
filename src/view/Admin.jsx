@@ -230,7 +230,7 @@ const Admin = (setMenuVisible) => {
               Add Products
             </Button>
             <Button className="adminBtnLog mt-3" onClick={adminLogOut}>
-              Log Out
+              Sign Out
             </Button>
           </Col>
           {isVisible && (

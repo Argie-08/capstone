@@ -80,15 +80,23 @@ const LogIn = (user = { user }) => {
 
               <div className="d-flex flex-column justify-content-end">
                 <Button
-                  label="Log In"
+                  label="Sign In"
                   className="px-5 py-2 rounded loginBtn mb-3"
                 />
                 <Button
-                  label="Sign-Up"
+                  label="Sign Up"
                   link
                   className="px-5 py-2 rounded continueBtn"
                   onClick={() => navigate("/register")}
                 />
+              </div>
+              <div className="mt-5 text-center userdetails d-flex flex-column gap-2 py-2">
+                <p className="fw-bold m-0">
+                  *username: <span className="text-success">horizone</span>
+                </p>
+                <p className="fw-bold m-0">
+                  *password: <span className="text-success">password123</span>
+                </p>
               </div>
             </form>
           </Col>

@@ -69,6 +69,14 @@ const AdminLog = () => {
                 />
               </div>
               <button className="w-100">Sign In</button>
+              <div className="mt-5 text-center d-flex flex-column gap-2 py-2 adminCredentials">
+                <p className="adminUser m-0">
+                  username: <span className="text-success">admin</span>
+                </p>
+                <p className="adminUser m-0">
+                  password: <span className="text-success">password</span>
+                </p>
+              </div>
             </form>
           </Col>
         </Row>

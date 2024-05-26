@@ -156,7 +156,7 @@ const Navigation = ({
                     <Button
                       className="px-4 logInBtn"
                       onClick={handleLogIn}
-                      label="LOG-IN"
+                      label="Sign In"
                     />
                   )}
                   {outVisible && (
@@ -164,7 +164,7 @@ const Navigation = ({
                       className="logOutBtn"
                       onClick={handleLogOut}
                       link
-                      label="LOG-OUT"
+                      label="Sign Out"
                     />
                   )}
                 </Nav>
