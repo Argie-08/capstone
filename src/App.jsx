@@ -7,6 +7,7 @@ import { Sidebar } from "primereact/sidebar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import { AppContext } from "./AppContext";
 import Home from "./view/Home";
 import Shop from "./view/Shop";
 import Register from "./view/Register";
@@ -46,11 +47,6 @@ const App = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    navIcon();
-    return () => {};
-  }, []);
-
-  useEffect(() => {
     async function getFile() {
       const { data } = await api.get("/products");
       const latest = data.reverse();
@@ -63,11 +59,7 @@ const App = () => {
     return () => {};
   }, []);
 
-  const [data, setData] = useState("");
-
-  function navIcon() {
-    setData(`${user?.username}`);
-  }
+  console.log(products);
 
   function handleAddCart(data) {
     if (!token) {
@@ -198,148 +190,155 @@ const App = () => {
     setOrderRight(true);
   }
 
-  const totalPrices = totalPrice.toLocaleString("en-PH", {
-    style: "currency",
-    currency: "PHP",
-  });
+  function currency(data) {
+    const currencyPeso = data.toLocaleString("en-PH", {
+      style: "currency",
+      currency: "PHP",
+    });
+    return currencyPeso;
+  }
 
   return (
     <>
-      <Toast ref={toast} />
-      {contextHolder}
-      <Navigation
-        cartItems={cartItems}
-        cartModal={cartModal}
-        openOrder={openOrder}
-        menuVisible={menuVisible}
-        setMenuVisible={setMenuVisible}
-      />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              handleAddCartHome={handleAddCartHome}
-              setOpen={setOpen}
-              open={open}
-              setShow={setShow}
-              show={show}
-              products={products}
-            />
-          }
+      <AppContext.Provider value={currency}>
+        <Toast ref={toast} />
+        {contextHolder}
+        <Navigation
+          cartItems={cartItems}
+          cartModal={cartModal}
+          openOrder={openOrder}
+          menuVisible={menuVisible}
+          setMenuVisible={setMenuVisible}
         />
-        <Route
-          path="/shop"
-          element={
-            <Shop
-              user={user}
-              cartItems={cartItems}
-              handleAddCart={handleAddCart}
-              handleIncrease={handleIncrease}
-              setVisible={setVisible}
-              visible={visible}
-              secondData={secondData}
-              setSecondData={secondData}
-              setVisibleRight={setVisibleRight}
-              priceData={priceData}
-            />
-          }
-        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                handleAddCartHome={handleAddCartHome}
+                setOpen={setOpen}
+                open={open}
+                setShow={setShow}
+                show={show}
+                products={products}
+              />
+            }
+          />
+          <Route
+            path="/shop"
+            element={
+              <Shop
+                user={user}
+                cartItems={cartItems}
+                handleAddCart={handleAddCart}
+                handleIncrease={handleIncrease}
+                setVisible={setVisible}
+                visible={visible}
+                secondData={secondData}
+                setSecondData={secondData}
+                setVisibleRight={setVisibleRight}
+                priceData={priceData}
+              />
+            }
+          />
 
-        <Route path="/register" element={<Register />} />
-        <Route path="/log-in" element={<LogIn />} />
-        <Route
-          path="/admin"
-          element={<Admin setMenuVisible={setMenuVisible} />}
-        />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/checkout"
-          element={
-            <CheckOut
-              cartItems={cartItems}
-              user={user}
-              totalPrice={totalPrice}
-              placeOrder={placeOrder}
-              setCartItems={setCartItems}
-            />
-          }
-        />
-        <Route path="/admin/log-in" element={<AdminLog />} />
-      </Routes>
-      <Footer />
-      <Sidebar
-        visible={visibleRight}
-        position="right"
-        onHide={() => setVisibleRight(false)}
-        className="sideBarBg"
-      >
-        <Row>
-          <Col className="d-flex gap-3 sideBarUnderLine">
-            <p className="freeShip m-0">STANDARD FREE SHIPPING</p>
-            <TruckOutlined />
-          </Col>
-        </Row>
+          <Route path="/register" element={<Register />} />
+          <Route path="/log-in" element={<LogIn />} />
+          <Route
+            path="/admin"
+            element={<Admin setMenuVisible={setMenuVisible} />}
+          />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/checkout"
+            element={
+              <CheckOut
+                cartItems={cartItems}
+                user={user}
+                totalPrice={totalPrice}
+                placeOrder={placeOrder}
+                setCartItems={setCartItems}
+              />
+            }
+          />
+          <Route path="/admin/log-in" element={<AdminLog />} />
+        </Routes>
+        <Footer />
+        <Sidebar
+          visible={visibleRight}
+          position="right"
+          onHide={() => setVisibleRight(false)}
+          className="sideBarBg"
+        >
+          <Row>
+            <Col className="d-flex gap-3 sideBarUnderLine">
+              <p className="freeShip m-0">STANDARD FREE SHIPPING</p>
+              <TruckOutlined />
+            </Col>
+          </Row>
 
-        <Row>
-          <Col xs={12}>
-            <div>
-              {cartItems.map((item, i) => {
-                return (
-                  <div key={i}>
-                    <div className="d-flex m-0 p-0 align-items-center">
-                      <img
-                        src={`${images}/${item.image}`}
-                        className="cartImage"
-                      ></img>
-                      <p>{item.name}</p>
-                    </div>
-                    <div className="mb-4 d-flex  justify-content-end gap-5 align-items-center">
-                      <div className="">
-                        <button
-                          className="addminusBtn me-1"
-                          onClick={() => handleIncrease(item)}
-                        >
-                          +
-                        </button>
-                        <button
-                          className="addminusBtn"
-                          onClick={() => handleDecrease(item)}
-                        >
-                          -
-                        </button>
+          <Row>
+            <Col xs={12}>
+              <div>
+                {cartItems.map((item, i) => {
+                  return (
+                    <div key={i}>
+                      <div className="d-flex m-0 p-0 align-items-center">
+                        <img
+                          src={`${images}/${item.image}`}
+                          className="cartImage"
+                        ></img>
+                        <p>{item.name}</p>
                       </div>
+                      <div className="mb-4 d-flex  justify-content-end gap-5 align-items-center">
+                        <div className="">
+                          <button
+                            className="addminusBtn me-1"
+                            onClick={() => handleIncrease(item)}
+                          >
+                            +
+                          </button>
+                          <button
+                            className="addminusBtn"
+                            onClick={() => handleDecrease(item)}
+                          >
+                            -
+                          </button>
+                        </div>
 
-                      <div>
-                        Quantity: <b>{item.quantity}</b>
+                        <div>
+                          Quantity: <b>{item.quantity}</b>
+                        </div>
                       </div>
                     </div>
+                  );
+                })}
+                <div className="d-flex justify-content-end my-3 mb-5 totalTopLine">
+                  <div className="total pt-3">
+                    GRAND TOTAL: {currency(totalPrice)}
                   </div>
-                );
-              })}
-              <div className="d-flex justify-content-end my-3 mb-5 totalTopLine">
-                <div className="total pt-3">GRAND TOTAL: {totalPrices}</div>
+                </div>
+                <Button
+                  className="storeBtnOut w-100 py-2"
+                  onClick={() => checkOut(cartItems)}
+                >
+                  PROCEED TO CHECKOUT
+                </Button>
               </div>
-              <Button
-                className="storeBtnOut w-100 py-2"
-                onClick={() => checkOut(cartItems)}
-              >
-                PROCEED TO CHECKOUT
-              </Button>
-            </div>
-          </Col>
-        </Row>
-      </Sidebar>
-      <Sidebar
-        visible={orderRight}
-        position="right"
-        onHide={() => setOrderRight(false)}
-      >
-        <Row>
-          <p>ORDER</p>
-          <h1>IN PROGRESS(still coding)</h1>
-        </Row>
-      </Sidebar>
+            </Col>
+          </Row>
+        </Sidebar>
+        <Sidebar
+          visible={orderRight}
+          position="right"
+          onHide={() => setOrderRight(false)}
+        >
+          <Row>
+            <p>ORDER</p>
+            <h1>IN PROGRESS(still coding)</h1>
+          </Row>
+        </Sidebar>
+      </AppContext.Provider>
     </>
   );
 };

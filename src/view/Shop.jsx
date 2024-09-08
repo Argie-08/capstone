@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import useApi from "../utils/http";
 import Pic from "../assets/storePic.jpg";
 import "./Shop.css";
+import { useContext } from "react";
+import { AppContext } from "../AppContext";
 
 const images = import.meta.env.VITE_IMAGES;
 
@@ -30,6 +32,7 @@ const shop = ({
   const [searchItem, setSearchItem] = useState([]);
   const [file, setFile] = useState([]);
   const [search, setSearch] = useState("");
+  const price = useContext(AppContext);
 
   useEffect(() => {
     getProduct();
@@ -180,7 +183,7 @@ const shop = ({
 
                     <div className="shopModalBottom">
                       <Card.Text className="storeProd2">
-                        Php {product.price}
+                        {price(product.price)}
                       </Card.Text>
                       <Button
                         className="storeBtnBtn"

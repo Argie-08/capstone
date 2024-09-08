@@ -7,6 +7,8 @@ import { Popover } from "antd";
 import Modal from "react-bootstrap/Modal";
 import "./Admin.css";
 import { useEffect, useState, useRef } from "react";
+import { useContext } from "react";
+import { AppContext } from "../AppContext";
 import useApi from "../utils/http";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast";
@@ -18,6 +20,8 @@ const images = import.meta.env.VITE_IMAGES;
 
 const Admin = (setMenuVisible) => {
   const api = useApi();
+  const currency = useContext(AppContext);
+
   const toast = useRef(null);
   const filed = useRef(null);
   const allProducts = useRef(null);
@@ -257,7 +261,7 @@ const Admin = (setMenuVisible) => {
                             Quantity: <b>{detail.quantity}</b>
                           </p>
                           <p>
-                            Price: <b>{detail.price}</b>
+                            Price: <b>{currency(detail.price)}</b>
                           </p>
                           <div className="d-flex gap-2 my-3 mt-4">
                             <Popover content="Update">
